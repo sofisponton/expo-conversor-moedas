@@ -10,6 +10,28 @@ export default function App() {
   const [moedaEntrada, setMoedaEntrada] = useState('33.33')
   const [resultado, setResultado] = useState('')
 
+
+  const handleConverter = async () => {
+    let URL = `https://economia.awesomeapi.com.br/last/${moedaOrigem}-${moedaDestino}`;
+    try {
+      let page = await fetch(URL);
+      let json = await page.json();
+      //console.log(json);
+      let indice = parseFloat(json[`${moedaOrigem}${moedaDestino}`].high)
+      let valor = parseFloat(valorEntrada)
+      setResultado((indice*valor).toFixed(2))
+    } catch (error) {
+      setResultado(`Erro: ${error.message}`)
+    }
+  }
+
+  const handleLimpar = () => {
+    setResultado('');
+    setVAlorEntrada('33.33333');
+    setMoedaOrigem('BRL');
+    setMoedaDestino('USD');
+   }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}> Conversor de Moedas</Text>
@@ -56,9 +78,9 @@ export default function App() {
         ></TextInput>
       </View>
 
-      <Pressable style={styles.button}><Text style={styles.title}>Converter</Text></Pressable>
-      <Pressable style={styles.button}><Text style={styles.title}>Limpar</Text></Pressable>
-
+      <Pressable style={styles.button} onPress={handleConverter}><Text style={styles.title} >Converter</Text></Pressable>
+      <Pressable style={styles.button}onLongPress={handleLimpar}><Text style={styles.title} >Limpar</Text></Pressable>
+          <View><Text style={styles.lbResultado}>{resultado}</Text></View>
 
 
 
@@ -100,5 +122,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5
+  },
+  lbResultado:{
+    color: '#fff',
   }
 });
