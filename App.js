@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
+import titulo from './assets/title.png';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
 
@@ -34,7 +35,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}> Conversor de Moedas</Text>
+    < Image source={titulo} style={styles.image}/>
+    <View style={styles.bloco}>
       <View>
         <Text style={styles.tbmoeda}>Moeda 1</Text>
         <Picker
@@ -68,7 +70,7 @@ export default function App() {
 
         </Picker>
       </View>
-      <View>
+      <View style={{paddingBottom: 20}}>
         <Text style={styles.tbmoeda}>Valor para conversão</Text>
         <TextInput
           style={styles.input}
@@ -78,13 +80,15 @@ export default function App() {
         ></TextInput>
       </View>
 
-      <Pressable style={styles.button} onPress={handleConverter}><Text style={styles.title} >Converter</Text></Pressable>
-      <Pressable style={styles.button}onLongPress={handleLimpar}><Text style={styles.title} >Limpar</Text></Pressable>
+      <Pressable style={styles.button} onPress={handleConverter}><Text style={{color: '#515140', fontWeight: 'bold'}}>Converter</Text></Pressable>
+      <Text> </Text>
+      <Pressable style={styles.button}onLongPress={handleLimpar}><Text style={{color: '#515140', fontWeight: 'bold'}} >Limpar</Text></Pressable>
           <View><Text style={styles.lbResultado}>{resultado}</Text></View>
 
 
 
       <StatusBar style="auto" />
+      </View>
     </View>
   );
 }
@@ -92,38 +96,55 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#E7E7D4',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  title: {
-    color: '#fff'
+  bloco:{
+    backgroundColor: '#515140',
+    borderRadius: 25,
+    width: 270,
+    height: 400,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
+ 
+
   picker: {
-    color: '#fff',
-    width: '200px'
+    color: '#515140',
+    fontWeight: 'bold',
+    width: '200px',
+    marginBottom: 17
   },
 
   input: {
-    color: '#fff',
-    textAlign: 'right'
+    color: '#E7E7D4',
+    textAlign: 'right',
+    fontWeight: 'bold'
   },
   tbmoeda: {
-    color: '#fff',
+    color: '#E7E7D4',
+    textAlign: 'left',
+    fontWeight: 'bold',
+    
   },
   button:{
     width: 200,
     height: 40,
     paddingBottom: 10,
-    backgroundColor: '#999',
+    backgroundColor: '#E7E7D4',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5
+    borderRadius: 10
   },
   lbResultado:{
     color: '#fff',
+  },
+  image:{
+    width: 200, 
+    height: 200
   }
 });
