@@ -19,7 +19,7 @@ export default function App() {
       let json = await page.json();
       //console.log(json);
       let indice = parseFloat(json[`${moedaOrigem}${moedaDestino}`].high)
-      let valor = parseFloat(valorEntrada)
+      let valor = parseFloat(moedaEntrada)
       setResultado((indice*valor).toFixed(2))
     } catch (error) {
       setResultado(`Erro: ${error.message}`)
